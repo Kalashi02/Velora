@@ -1,12 +1,19 @@
 // src/components/CartDrawer.jsx
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 function CartDrawer() {
   const { cart, isCartOpen, toggleCart, updateQuantity, removeFromCart } = useCart();
+  const navigate = useNavigate();
   
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   if (!isCartOpen) return null;
+
+  const handleCheckout = () => {
+    toggleCart(); 
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -77,7 +84,13 @@ function CartDrawer() {
               <span style={{ fontSize: "1.2rem", fontWeight: "600" }}>Total</span>
               <span style={{ fontSize: "1.2rem", fontWeight: "600", color: "var(--color-accent)" }}>Rs. {total}</span>
             </div>
-            <button className="btn-primary" style={{ width: "100%", padding: "15px", fontSize: "1.1rem" }}>Checkout</button>
+            <button 
+              onClick={handleCheckout}
+              className="btn-primary" 
+              style={{ width: "100%", padding: "15px", fontSize: "1.1rem" }}
+            >
+              Checkout
+            </button>
           </div>
         )}
       </div>

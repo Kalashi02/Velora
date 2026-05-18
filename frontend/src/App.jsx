@@ -7,6 +7,7 @@ import Shop from "./pages/Shop";
 import Contact from "./pages/Contact";
 import CartDrawer from "./components/CartDrawer";
 import ProductDetail from "./pages/ProductDetail";
+import Checkout from "./pages/Checkout";
 import { CartProvider } from "./context/CartContext";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </Router>
