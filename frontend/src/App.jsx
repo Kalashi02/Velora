@@ -13,16 +13,20 @@ import About from "./pages/About";
 import { FAQ, Shipping, Returns, PrivacyPolicy } from "./pages/Policies";
 import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
+import { WishlistProvider } from "./context/WishlistContext";
 import NewsletterPopup from "./components/NewsletterPopup";
+import WishlistDrawer from "./components/WishlistDrawer";
 
 function App() {
   return (
     <ToastProvider>
-      <CartProvider>
-        <Router>
-          <Header />
-          <CartDrawer />
-          <NewsletterPopup />
+      <WishlistProvider>
+        <CartProvider>
+          <Router>
+            <Header />
+            <CartDrawer />
+            <WishlistDrawer />
+            <NewsletterPopup />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -38,7 +42,8 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </CartProvider>
+        </CartProvider>
+      </WishlistProvider>
     </ToastProvider>
   );
 }
