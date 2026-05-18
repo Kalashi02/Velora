@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function Checkout() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("card");
@@ -24,11 +24,8 @@ function Checkout() {
     // Simulate backend payment and processing sequence
     setTimeout(() => {
       setLoading(false);
-      alert("Order placed successfully! Thank you for shopping with Velora.");
-      
-      // Navigate to Home
-      navigate("/");
-      window.location.reload(); 
+      clearCart();
+      navigate("/success");
     }, 1500);
   };
 
