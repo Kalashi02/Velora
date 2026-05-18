@@ -1,7 +1,24 @@
-
 import { Link } from "react-router-dom";
+import { useWishlist } from "../context/WishlistContext";
+import { useToast } from "../context/ToastContext";
 
 function ProductCard({ p }) {
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addToast } = useToast();
+  const isWishlisted = wishlist.some(item => item.id === p.id);
+
+  const handleToggleWishlist = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isWishlisted) {
+      removeFromWishlist(p.id);
+      addToast(`${p.name} removed from wishlist`);
+    } else {
+      addToWishlist(p);
+      addToast(`${p.name} added to wishlist`);
+    }
+  };
+
   return (
     <Link to={`/product/${p.id}`} className="fade-in" style={{ textDecoration: "none" }}>
       <div
