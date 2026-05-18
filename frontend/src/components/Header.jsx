@@ -1,4 +1,4 @@
-// src/components/Header.jsx
+
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -30,24 +30,24 @@ function Header() {
 
       {/* Navigation */}
       <nav style={{ display: "flex", gap: "30px" }}>
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           style={{ fontWeight: "500", padding: "8px 0" }}
           onMouseOver={(e) => e.currentTarget.style.color = "var(--color-accent)"}
           onMouseOut={(e) => e.currentTarget.style.color = "var(--color-text-dark)"}
         >
           Home
         </Link>
-        <Link 
-          to="/shop" 
+        <Link
+          to="/shop"
           style={{ fontWeight: "500", padding: "8px 0" }}
           onMouseOver={(e) => e.currentTarget.style.color = "var(--color-accent)"}
           onMouseOut={(e) => e.currentTarget.style.color = "var(--color-text-dark)"}
         >
           Shop
         </Link>
-        <Link 
-          to="/contact" 
+        <Link
+          to="/contact"
           style={{ fontWeight: "500", padding: "8px 0" }}
           onMouseOver={(e) => e.currentTarget.style.color = "var(--color-accent)"}
           onMouseOut={(e) => e.currentTarget.style.color = "var(--color-text-dark)"}
@@ -57,13 +57,13 @@ function Header() {
       </nav>
 
       {/* Cart button */}
-      <button 
+      <button
         onClick={toggleCart}
-        style={{ 
-          cursor: "pointer", 
-          fontWeight: "600", 
-          border: "1px solid var(--color-border)", 
-          padding: "8px 16px", 
+        style={{
+          cursor: "pointer",
+          fontWeight: "600",
+          border: "1px solid var(--color-border)",
+          padding: "8px 16px",
           borderRadius: "20px",
           background: "none",
           fontFamily: "var(--font-body)",

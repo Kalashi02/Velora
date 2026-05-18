@@ -9,6 +9,7 @@ import CartDrawer from "./components/CartDrawer";
 import ProductDetail from "./pages/ProductDetail";
 import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
+import About from "./pages/About";
 import { FAQ, Shipping, Returns, PrivacyPolicy } from "./pages/Policies";
 import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -24,6 +25,7 @@ function App() {
           <NewsletterPopup />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:id" element={<ProductDetail />} />
