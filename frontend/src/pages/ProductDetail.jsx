@@ -2,11 +2,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useToast } from "../context/ToastContext";
 
 function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { addToast } = useToast();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
@@ -32,6 +34,7 @@ function ProductDetail() {
       return;
     }
     addToCart({ ...product, selectedSize });
+    addToast(`${product.name} added to cart`);
   };
 
   return (

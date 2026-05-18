@@ -10,13 +10,17 @@ import ProductDetail from "./pages/ProductDetail";
 import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
 import { CartProvider } from "./context/CartContext";
+import { ToastProvider } from "./context/ToastContext";
+import NewsletterPopup from "./components/NewsletterPopup";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Header />
-        <CartDrawer />
+    <ToastProvider>
+      <CartProvider>
+        <Router>
+          <Header />
+          <CartDrawer />
+          <NewsletterPopup />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
@@ -28,6 +32,7 @@ function App() {
         <Footer />
       </Router>
     </CartProvider>
+    </ToastProvider>
   );
 }
 
