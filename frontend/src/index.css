@@ -1,0 +1,125 @@
+/* Velora Design System */
+
+:root {
+  /* Color Palette */
+  --color-primary: #F9F4EF;
+  --color-secondary: #EADBD3;
+  --color-accent: #B76E79;
+  --color-accent-hover: #a15f69;
+  --color-text-dark: #4A2C2A;
+  --color-text-light: #fff;
+  --color-text-muted: #7b5855;
+  --color-bg-light: #FFF8F3;
+  --color-border: #EADBD3;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 64px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(183,110,121,0.2);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(249, 244, 239, 0.85);
+  --glass-border: rgba(234, 219, 211, 0.4);
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background-color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin: 0 0 var(--space-md) 0;
+  color: var(--color-text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+}
+
+/* Utility Classes */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-light);
+  padding: 12px 24px;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-text-dark);
+  padding: 8px 16px;
+  border: 1px solid var(--color-text-dark);
+  font-weight: 500;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-text-dark);
+  color: var(--color-text-light);
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
