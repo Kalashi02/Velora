@@ -7,6 +7,7 @@ function Checkout() {
   const { cart } = useCart();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("card");
 
   useEffect(() => {
     // Optional: scroll to top when mounting the checkout
@@ -14,7 +15,7 @@ function Checkout() {
   }, []);
 
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = 500; // Flat rate shipping
+  const shipping = 450; // flat rate matching the screenshot
   const total = subtotal > 0 ? subtotal + shipping : 0;
 
   const handlePlaceOrder = (e) => {
@@ -25,10 +26,9 @@ function Checkout() {
       setLoading(false);
       alert("Order placed successfully! Thank you for shopping with Velora.");
       
-      // In a real application, you'd execute a CartContext function to empty the cart securely.
-      // We will mimic it by returning to the Home page natively.
+      // Navigate to Home
       navigate("/");
-      window.location.reload(); // Quick hack to purge memory cart without extending context interface right now
+      window.location.reload(); 
     }, 1500);
   };
 
@@ -43,119 +43,157 @@ function Checkout() {
   }
 
   return (
-    <main className="fade-in" style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 20px", display: "flex", gap: "60px", flexWrap: "wrap", alignItems: "flex-start" }}>
-      
+    <div className="checkout-container fade-in">
       {/* Left Column: Form */}
-      <div style={{ flex: "1.5", minWidth: "300px" }}>
-        <h1 style={{ fontSize: "1.8rem", fontWeight: "300", letterSpacing: "3px", textTransform: "uppercase", margin: "0 0 40px 0" }}>
-          Checkout
-        </h1>
-
+      <div className="checkout-left">
+        <h1 className="checkout-header">VELORA</h1>
+        
         <form onSubmit={handlePlaceOrder}>
           {/* Contact Details */}
-          <div style={{ marginBottom: "40px" }}>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: "500", textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px solid #eee", paddingBottom: "10px", marginBottom: "20px" }}>Contact Information</h2>
-            <div style={{ marginBottom: "15px" }}>
-              <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>Email Address</label>
-              <input type="email" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
-            </div>
-            <div style={{ marginBottom: "15px" }}>
-              <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>Phone Number</label>
-              <input type="tel" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
-            </div>
+          <div className="checkout-section">
+            <h2 className="checkout-section-title">
+              Contact
+              <span style={{ fontSize: "0.85rem", fontWeight: "400", cursor: "pointer", textDecoration: "underline", color: "#555" }}>Sign In</span>
+            </h2>
+            <input type="email" placeholder="Email" required className="checkout-input" style={{ marginBottom: "12px" }} />
+            <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.85rem", color: "#555", cursor: "pointer" }}>
+              <input type="checkbox" defaultChecked />
+              Email me with news and offers
+            </label>
           </div>
 
-          {/* Shipping Details */}
-          <div style={{ marginBottom: "40px" }}>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: "500", textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px solid #eee", paddingBottom: "10px", marginBottom: "20px" }}>Shipping Address</h2>
-            <div style={{ display: "flex", gap: "15px", marginBottom: "15px" }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>First Name</label>
-                <input type="text" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>Last Name</label>
-                <input type="text" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
-              </div>
+          {/* Delivery Details */}
+          <div className="checkout-section">
+            <h2 className="checkout-section-title">Delivery</h2>
+            
+            <div style={{ display: "flex", marginBottom: "20px" }}>
+              <button type="button" style={{ flex: 1, padding: "14px", border: "1px solid var(--color-accent)", borderBottomLeftRadius: "4px", borderTopLeftRadius: "4px", backgroundColor: "#fcf8f9", borderRight: "none", color: "var(--color-text-dark)", fontWeight: "500", fontSize: "0.95rem" }}>
+                Ship
+              </button>
+              <button type="button" style={{ flex: 1, padding: "14px", border: "1px solid #d9d9d9", borderBottomRightRadius: "4px", borderTopRightRadius: "4px", backgroundColor: "#fafafa", color: "#777", fontSize: "0.95rem" }}>
+                Pickup
+              </button>
             </div>
-            <div style={{ marginBottom: "15px" }}>
-              <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>Street Address</label>
-              <input type="text" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
+
+            <input type="text" placeholder="Country/Region (e.g. Sri Lanka)" defaultValue="Sri Lanka" required className="checkout-input" />
+            
+            <div className="checkout-input-row">
+              <input type="text" placeholder="First name" required className="checkout-input" />
+              <input type="text" placeholder="Last name" required className="checkout-input" />
             </div>
-            <div style={{ display: "flex", gap: "15px", marginBottom: "15px" }}>
-              <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>City</label>
-                <input type="text" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <label style={{ display: "block", fontSize: "0.85rem", color: "#555", marginBottom: "5px" }}>Postal Code</label>
-                <input type="text" required style={{ width: "100%", padding: "12px", border: "1px solid #ddd", fontSize: "1rem", boxSizing: "border-box" }} />
+            
+            <input type="text" placeholder="Address" required className="checkout-input" />
+            <input type="text" placeholder="Apartment, suite, etc. (optional)" className="checkout-input" />
+            
+            <div className="checkout-input-row">
+              <input type="text" placeholder="City" required className="checkout-input" />
+              <input type="text" placeholder="Postal code (optional)" className="checkout-input" />
+            </div>
+            
+            <input type="tel" placeholder="Phone" required className="checkout-input" style={{ marginBottom: "12px" }} />
+            <label style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.85rem", color: "#555", cursor: "pointer" }}>
+              <input type="checkbox" />
+              Save this information for next time
+            </label>
+          </div>
+
+          {/* Shipping Method */}
+          <div className="checkout-section">
+            <h2 className="checkout-section-title">Shipping method</h2>
+            <div className="checkout-box">
+              <div className="checkout-box-row" style={{ backgroundColor: "#fafafa" }}>
+                <span style={{ fontSize: "0.95rem", color: "#333" }}>Delivery</span>
+                <span style={{ fontWeight: "500", color: "#333" }}>Rs {shipping.toFixed(2)}</span>
               </div>
             </div>
           </div>
 
           {/* Payment Method */}
-          <div style={{ marginBottom: "40px" }}>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: "500", textTransform: "uppercase", letterSpacing: "1px", borderBottom: "1px solid #eee", paddingBottom: "10px", marginBottom: "20px" }}>Payment</h2>
-            <div style={{ border: "1px solid #ddd", padding: "15px", backgroundColor: "#fafafa" }}>
-              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
-                <input type="radio" name="payment" defaultChecked />
-                <span style={{ fontSize: "0.95rem" }}>Cash on Delivery (COD)</span>
-              </label>
+          <div className="checkout-section">
+            <h2 className="checkout-section-title">Payment</h2>
+            <p style={{ fontSize: "0.85rem", color: "#555", margin: "-10px 0 15px 0" }}>All transactions are secure and encrypted.</p>
+            <div className="checkout-box">
+              <div className={`checkout-box-row ${paymentMethod === 'card' ? 'active' : ''}`} onClick={() => setPaymentMethod('card')} style={{ borderBottom: "1px solid #d9d9d9" }}>
+                <label className="checkout-radio-label">
+                  <input type="radio" name="payment" checked={paymentMethod === 'card'} onChange={() => setPaymentMethod('card')} />
+                  Bank Card / Bank Account - PayHere
+                </label>
+              </div>
+              {paymentMethod === 'card' && (
+                <div style={{ padding: "25px", textAlign: "center", backgroundColor: "#fafafa", fontSize: "0.9rem", color: "#555", borderBottom: "1px solid #d9d9d9" }}>
+                  You'll be redirected to Bank Card / Bank Account - PayHere to complete your purchase.
+                </div>
+              )}
+              
+              <div className={`checkout-box-row ${paymentMethod === 'cod' ? 'active' : ''}`} onClick={() => setPaymentMethod('cod')}>
+                <label className="checkout-radio-label">
+                  <input type="radio" name="payment" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} />
+                  Cash on Delivery (COD)
+                </label>
+              </div>
             </div>
           </div>
 
           <button 
             type="submit" 
             style={{
-              width: "100%", padding: "20px", backgroundColor: "#111", color: "#fff",
-              border: "none", fontSize: "1rem", letterSpacing: "2px", textTransform: "uppercase",
-              cursor: loading ? "wait" : "pointer", opacity: loading ? 0.7 : 1, transition: "background-color 0.2s"
+              width: "100%", padding: "20px", backgroundColor: "var(--color-text-dark)", color: "#fff",
+              border: "none", fontSize: "1.1rem", borderRadius: "6px",
+              cursor: loading ? "wait" : "pointer", opacity: loading ? 0.8 : 1, transition: "background-color 0.2s"
             }}
-            onMouseOver={e => { if(!loading) e.currentTarget.style.backgroundColor = "#333"; }}
-            onMouseOut={e => { if(!loading) e.currentTarget.style.backgroundColor = "#111"; }}
+            onMouseOver={e => { if(!loading) e.currentTarget.style.backgroundColor = "var(--color-accent)"; }}
+            onMouseOut={e => { if(!loading) e.currentTarget.style.backgroundColor = "var(--color-text-dark)"; }}
           >
-            {loading ? "Processing..." : "Place Order"}
+            {loading ? "Processing..." : "Pay now"}
           </button>
         </form>
       </div>
 
       {/* Right Column: Order Summary */}
-      <div style={{ flex: "1", minWidth: "300px", backgroundColor: "#FAFAFA", padding: "30px", border: "1px solid #eee", boxShadow: "0 10px 30px rgba(0,0,0,0.03)" }}>
-        <h2 style={{ fontSize: "1.1rem", fontWeight: "400", letterSpacing: "2px", textTransform: "uppercase", margin: "0 0 20px 0" }}>Order Summary</h2>
-        
-        <div style={{ maxHeight: "350px", overflowY: "auto", borderBottom: "1px solid #ddd", paddingBottom: "20px", marginBottom: "20px" }}>
+      <div className="checkout-right">
+        <div style={{ marginBottom: "30px" }}>
           {cart.map(item => (
-            <div key={item.cartId} style={{ display: "flex", gap: "15px", marginBottom: "15px" }}>
-              <img src={`/images/${item.image}`} alt={item.name} style={{ width: "60px", height: "60px", objectFit: "cover", border: "1px solid #ddd" }} />
-              <div style={{ flex: 1 }}>
-                <p style={{ margin: "0 0 5px 0", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "1px", color: "#111" }}>{item.name}</p>
-                <p style={{ margin: "0 0 5px 0", fontSize: "0.8rem", color: "#777" }}>Size: EU {item.selectedSize}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "0.85rem", color: "#555" }}>Qty: {item.quantity}</span>
-                  <span style={{ fontSize: "0.9rem", color: "#333" }}>RS {item.price * item.quantity}</span>
-                </div>
+            <div key={item.cartId} style={{ display: "flex", gap: "20px", alignItems: "center", marginBottom: "20px" }}>
+              <div style={{ position: "relative" }}>
+                <img src={`/images/${item.image}`} alt={item.name} style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "8px", border: "1px solid #e1e1e1", backgroundColor: "#fff" }} />
+                <span style={{ position: "absolute", top: "-10px", right: "-10px", backgroundColor: "rgba(119,119,119,0.9)", color: "#fff", width: "22px", height: "22px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: "600" }}>
+                  {item.quantity}
+                </span>
+              </div>
+              <div style={{ flex: 1, fontSize: "0.9rem" }}>
+                <p style={{ margin: "0 0 5px 0", fontWeight: "500", color: "#333", fontSize: "0.95rem" }}>{item.name}</p>
+                <p style={{ margin: "0", color: "#777", fontSize: "0.85rem" }}>EU {item.selectedSize}</p>
+              </div>
+              <div style={{ fontSize: "0.95rem", fontWeight: "500", color: "#333" }}>
+                Rs {(item.price * item.quantity).toFixed(2)}
               </div>
             </div>
           ))}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px", fontSize: "0.95rem", color: "#555" }}>
-          <span>Subtotal</span>
-          <span>RS {subtotal}</span>
+        <div style={{ display: "flex", gap: "10px", marginBottom: "30px", borderBottom: "1px solid #d9d9d9", paddingBottom: "30px" }}>
+          <input type="text" placeholder="Discount code or gift card" className="checkout-input" style={{ marginBottom: 0, flex: 1 }} />
+          <button style={{ padding: "0 20px", backgroundColor: "#f0f0f0", color: "#777", border: "1px solid #d9d9d9", borderRadius: "4px", fontWeight: "500", fontSize: "0.9rem", transition: "all 0.2s" }} onMouseOver={e => e.currentTarget.style.backgroundColor = "#e8e8e8"} onMouseOut={e => e.currentTarget.style.backgroundColor = "#f0f0f0"}>Apply</button>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", fontSize: "0.95rem", color: "#555" }}>
-          <span>Shipping (Flat Rate)</span>
-          <span>RS {shipping}</span>
+
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "0.95rem", color: "#555" }}>
+          <span>Subtotal</span>
+          <span style={{ fontWeight: "500", color: "#333" }}>Rs {subtotal.toFixed(2)}</span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "25px", fontSize: "0.95rem", color: "#555" }}>
+          <span>Shipping</span>
+          <span style={{ fontWeight: "500", color: "#333" }}>Rs {shipping.toFixed(2)}</span>
         </div>
         
-        <div style={{ display: "flex", justifyContent: "space-between", paddingTop: "20px", borderTop: "1px solid #ddd", fontSize: "1.2rem", fontWeight: "600", color: "#111" }}>
-          <span>Total</span>
-          <span>RS {total}</span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "25px", borderTop: "1px solid #d9d9d9", fontWeight: "600" }}>
+          <span style={{ fontSize: "1.1rem", color: "#333" }}>Total</span>
+          <span style={{ fontSize: "1.5rem", color: "#111" }}>
+            <span style={{ fontSize: "0.85rem", color: "#777", marginRight: "10px", fontWeight: "normal" }}>LKR</span>
+            Rs {total.toFixed(2)}
+          </span>
         </div>
       </div>
-
-    </main>
+    </div>
   );
 }
 

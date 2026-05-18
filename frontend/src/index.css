@@ -123,3 +123,122 @@ button {
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
+
+/* Checkout and Form elements */
+.checkout-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+}
+
+.checkout-left {
+  flex: 1.5;
+  background-color: #fff;
+  padding: 50px 8%;
+  border-right: 1px solid #e1e1e1;
+}
+
+.checkout-right {
+  flex: 1;
+  background-color: #fafafa;
+  padding: 50px 8%;
+}
+
+.checkout-header {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-dark);
+}
+
+.checkout-section {
+  margin-bottom: 40px;
+}
+
+.checkout-section-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+}
+
+.checkout-input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  background-color: #fff;
+}
+
+.checkout-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(183,110,121, 0.2);
+}
+
+.checkout-input-row {
+  display: flex;
+  gap: 15px;
+}
+.checkout-input-row > .checkout-input {
+  flex: 1;
+}
+
+/* Shipping / Payment Box */
+.checkout-box {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.checkout-box-row {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d9d9d9;
+  transition: background-color var(--transition-fast);
+}
+
+.checkout-box-row.active {
+  background-color: #fcf8f9; 
+  border-color: var(--color-accent);
+  position: relative;
+}
+
+.checkout-box-row:last-child {
+  border-bottom: none;
+}
+
+.checkout-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .checkout-container {
+    flex-direction: column-reverse;
+  }
+  .checkout-left, .checkout-right {
+    padding: 30px 20px;
+  }
+  .checkout-left {
+    border-right: none;
+  }
+}
