@@ -4,4 +4,4 @@ A modern e-commerce website for my shoe brand Velora, built with React.js for th
 
 Frontend - React.js
 Backend - Node.js + Express
-Database - MongoDB
+Database - MySQL
