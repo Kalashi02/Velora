@@ -48,17 +48,17 @@ function Home() {
             width: "90%",
             textAlign: "center",
             zIndex: 2,
-            backgroundColor: "rgba(255, 255, 255, 0.05)",
-            backdropFilter: "blur(5px)",
-            WebkitBackdropFilter: "blur(5px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            color: "#fff"
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
+            color: "#ffffff"
           }}
         >
-          <h1 style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", letterSpacing: "1px", textShadow: "0 4px 15px rgba(0,0,0,0.5)" }}>
+          <h1 style={{ color: "#ffffff", fontSize: "clamp(2.5rem, 6vw, 4.5rem)", letterSpacing: "1px", textShadow: "0 4px 15px rgba(0,0,0,0.8)" }}>
             Walk in Elegance
           </h1>
-          <p style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#eee", marginBottom: "35px", lineHeight: "1.6", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
+          <p style={{ color: "#f8f8f8", fontSize: "clamp(1rem, 2.5vw, 1.25rem)", marginBottom: "35px", lineHeight: "1.6", textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}>
             Discover handcrafted shoes designed for timeless style. Give yourself the confidence and beauty your walk deserves.
           </p>
           <Link to="/shop" style={{ display: "inline-block", padding: "16px 35px", fontSize: "1.1rem", backgroundColor: "#fff", color: "#111", border: "none", borderRadius: "40px", textTransform: "uppercase", letterSpacing: "1px", fontWeight: "600", transition: "all 0.3s" }} onMouseOver={e => e.currentTarget.style.backgroundColor = "#ddd"} onMouseOut={e => e.currentTarget.style.backgroundColor = "#fff"}>
