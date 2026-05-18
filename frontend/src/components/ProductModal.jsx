@@ -1,13 +1,27 @@
-
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useToast } from "../context/ToastContext";
+import { useWishlist } from "../context/WishlistContext";
 
 function ProductModal({ product, onClose, onOpenSizeChart }) {
   const { addToCart } = useCart();
   const { addToast } = useToast();
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  
   const [selectedSize, setSelectedSize] = useState(null);
   const sizes = [36, 37, 38, 39, 40];
+  
+  const isWishlisted = product && wishlist.some(item => item.id === product.id);
+
+  const handleToggleWishlist = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+      addToast(`${product.name} removed from wishlist`);
+    } else {
+      addToWishlist(product);
+      addToast(`${product.name} saved to wishlist`);
+    }
+  };
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -115,22 +129,34 @@ function ProductModal({ product, onClose, onOpenSizeChart }) {
             </div>
           </div>
 
-          <button
-            style={{
-              padding: "18px", fontSize: "0.85rem", letterSpacing: "2px", textTransform: "uppercase",
-              width: "100%", backgroundColor: "#111", color: "#fff", border: "none", cursor: "pointer",
-              opacity: selectedSize ? 1 : 0.6, transition: "background-color 0.2s"
-            }}
-            onMouseOver={(e) => {
-              if (selectedSize) e.currentTarget.style.backgroundColor = "#333";
-            }}
-            onMouseOut={(e) => {
-              if (selectedSize) e.currentTarget.style.backgroundColor = "#111";
-            }}
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button
+              style={{
+                flex: 1, padding: "18px", fontSize: "0.85rem", letterSpacing: "2px", textTransform: "uppercase",
+                backgroundColor: "#111", color: "#fff", border: "1px solid #111", cursor: "pointer",
+                opacity: selectedSize ? 1 : 0.6, transition: "background-color 0.2s"
+              }}
+              onMouseOver={(e) => {
+                if (selectedSize) e.currentTarget.style.backgroundColor = "#333";
+              }}
+              onMouseOut={(e) => {
+                if (selectedSize) e.currentTarget.style.backgroundColor = "#111";
+              }}
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </button>
+            
+            <button
+              onClick={handleToggleWishlist}
+              style={{
+                width: "55px", backgroundColor: "transparent", border: "1px solid #111", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s"
+              }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill={isWishlisted ? "var(--color-accent)" : "none"} stroke={isWishlisted ? "var(--color-accent)" : "#111"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
